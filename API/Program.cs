@@ -1,3 +1,5 @@
+using Core.Interfaces;
+using Infrastructure;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,10 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("ConnectionStrings:DefaultConnection"));
 });
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+// Scoped: per request
+// Transient: enclosing method
+// Singleton: application
 
 var app = builder.Build();
 
